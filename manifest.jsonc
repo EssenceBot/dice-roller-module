@@ -1,0 +1,12 @@
+{
+  "name": "dice-roller",
+  "fullName": "Dice Roller",
+  "description": "A dice roller module for a Discord bot",
+  "author": "Essence Bot Team"
+  // These are the dependencies on other bot specific modules
+  // for bun/node modules, use the package.json file
+  // "dependencies": {
+  //   "reqired": {},
+  //   "optional": {}
+  // }
+}
