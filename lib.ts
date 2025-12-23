@@ -30,7 +30,7 @@ export function checkNumberOfRerolls(input: string) {
 }
 
 export function calculateRoll(numberOfRerolls: number, input: string, sort: boolean) {
-    const diceRegex = /((100)|[0-9]{1,2})d((1000)|[0-9]{1,3})/gi;
+    const diceRegex = /((100)|[0-9]{1,2})[dk]((1000)|[0-9]{1,3})/gi;
 
     let fancyOutputArray: string[] = []
     let sumArray: number[] = []
@@ -42,7 +42,7 @@ export function calculateRoll(numberOfRerolls: number, input: string, sort: bool
         let diceRollsResult: Array<number[]> = []
         let splitDiceRolls: Array<number[]> = []
         diceRolls.forEach(diceRoll => {
-            const splitDiceRoll = diceRoll.split('d')
+            const splitDiceRoll = diceRoll.split(/[dk]/i)
             splitDiceRolls.push([+splitDiceRoll[0], +splitDiceRoll[1]])
             const result = rollDice(+splitDiceRoll[0], +splitDiceRoll[1], sort)
             diceRollsResult.push(result)
@@ -63,9 +63,15 @@ export function calculateRoll(numberOfRerolls: number, input: string, sort: bool
         fancyOutputArray.push(fancyOutput)
         try {
             const mathResult = evaluate(toCalculateOutput)
-            sumArray.push(mathResult._data[0])
+            if (typeof mathResult === 'number') {
+                sumArray.push(mathResult)
+            } else if (mathResult._data && mathResult._data[0] !== undefined) {
+                sumArray.push(mathResult._data[0])
+            } else {
+                return { status: 'error', result: "There was an error while calculating the result"}
+            }
         } catch (error) {
-            return { status: 'error', result: "There was an error while calculating the result"}
+            return { status: 'error', result: "There was an error while calculating the result. Please check your input and try again."}
         }
         
     }
