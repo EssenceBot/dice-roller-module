@@ -109,6 +109,9 @@ function formatRollCommand(
   user: string,
   comment: string
 ) {
+  if (!processingResult || !processingResult.sum || !processingResult.output) {
+    return "There was an error while processing your roll";
+  }
   if (processingResult.sum.length !== processingResult.output.length) {
     return "There was an error while processing your roll";
   }
