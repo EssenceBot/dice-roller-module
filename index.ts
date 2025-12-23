@@ -1,7 +1,9 @@
 import type { ChatInputCommandInteraction } from "discord.js";
 import type { SlashCommandBuilder } from "@discordjs/builders";
 import { createSlashCommand } from "@essence-discord-bot/api/botExtension";
-import chalk from "chalk";
+import botLog from "@essence-discord-bot/lib/log";
+
+const moduleName = "Dice Roller";
 
 const workerURL = new URL("worker.ts", import.meta.url).href;
 
@@ -94,10 +96,10 @@ export function discordBotInit() {
     await interaction.editReply(result);
   };
   createSlashCommand(coinflipSlashCommandHandler, coinflipInteractionHandler);
-  console.log(
-    `${chalk.green(
-      "[Dice Roller Module]"
-    )} Registered 3 slash commands: [roll, r, coinflip]`
+  botLog(
+    moduleName,
+    "Registered 3 slash commands: [roll, r, coinflip]",
+    "info"
   );
 }
 

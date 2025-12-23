@@ -1,0 +1,4 @@
+name = "dice-roller"
+fullName = "Dice Roller"
+description = "A dice roller module for an Essence Discord bot"
+author = "Essence Bot Team"
